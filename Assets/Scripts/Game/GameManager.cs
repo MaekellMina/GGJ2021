@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,14 +10,16 @@ public class GameManager : MonoBehaviour
 
     private bool b_pass = false;            // Did the game succeed or fail?
     private int gameScore = 0;
-
+       
     internal static GameManager instance;   // singleton instance
     //Put your game states here
     public enum GAMESTATES
     {
+        MAINMENU,
         INIT,
         INGAME,
         PAUSED,
+        WIN_CINEMATIC,
         GAMEOVER
     }
 
@@ -90,6 +93,13 @@ public class GameManager : MonoBehaviour
     {
         switch(gameState)
         {
+			case GAMESTATES.MAINMENU:
+				if(callOnce)
+				{
+
+					callOnce = false;
+				}
+				break;
             case GAMESTATES.INIT:
                 if(callOnce)
                 {
@@ -129,6 +139,13 @@ public class GameManager : MonoBehaviour
                 }
 
                 break;
+			case GAMESTATES.WIN_CINEMATIC:
+				if(callOnce)
+				{
+
+					callOnce = false;
+				}
+				break;
             case GAMESTATES.GAMEOVER:
                 if (callOnce)
                 {
