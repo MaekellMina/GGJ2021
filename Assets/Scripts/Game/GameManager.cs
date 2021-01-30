@@ -12,8 +12,11 @@ public class GameManager : MonoBehaviour
     private int gameScore = 0;
     public GameObject mainMenu;
     public GameObject inGameMenu;
+	public GameObject gameScreen;
     public GameObject pauseMenu;
     public GameoverUI gameOverMenu;
+
+	public TimelineUI timelineUI;
 
     internal static GameManager instance;   // singleton instance
     //Put your game states here
@@ -29,10 +32,19 @@ public class GameManager : MonoBehaviour
 
     public GAMESTATES gameState = GAMESTATES.INIT;
 
+    public enum LEVELSTATES
+	{
+		DISPLAY_ITEMSLIST,
+        FINDING,
+        AFTER_FIND
+	}
+
+	public LEVELSTATES levelState = LEVELSTATES.DISPLAY_ITEMSLIST;
+
     private bool b_gameover;                // Is the game over?
 
     bool callOnce = true;                   // Used when changing the game state bool for calling function/code once in the game
-
+	bool callOnce2 = true;
     //--------public game fields
 
 
@@ -102,7 +114,6 @@ public class GameManager : MonoBehaviour
 				{
                     mainMenu.SetActive(true);
                     pauseMenu.SetActive(false);
-                    inGameMenu.SetActive(false);
                     gameOverMenu.gameObject.SetActive(false);
                     callOnce = false;
 				}
@@ -120,10 +131,15 @@ public class GameManager : MonoBehaviour
                     mainMenu.SetActive(false);
                     gameOverMenu.gameObject.SetActive(false);
 
+					LostItemManager.instance.CreateItemsList();
+					FrameManager.instance.ResetFrames();
+					timelineUI.StartTracking();
+
                     //
                     callOnce = false;
                     //change gamestate after running init once
                     ChangeGameState(GAMESTATES.INGAME);
+					ChangeLevelState(LEVELSTATES.DISPLAY_ITEMSLIST);
                 }
                 break;
             case GAMESTATES.INGAME:
@@ -132,13 +148,11 @@ public class GameManager : MonoBehaviour
                     // -- Put codes that are needed to be called only once -- //
                     pauseMenu.SetActive(false);
                     inGameMenu.SetActive(true);
+					gameScreen.SetActive(true);
                     gameOverMenu.gameObject.SetActive(false);
                     //
                     callOnce = false;
                 }
-
-                if (Input.GetKeyDown(KeyCode.A))
-                    ChangeGameState(GAMESTATES.GAMEOVER);
 
                 //Game Loop
                 Game();
@@ -148,7 +162,6 @@ public class GameManager : MonoBehaviour
                 {
                     // -- Put codes that are needed to be called only once -- //
                     gameOverMenu.gameObject.SetActive(false);
-                    inGameMenu.SetActive(false);
                     pauseMenu.SetActive(true);
                     EventsManager.OnGamePaused.Invoke();
 
@@ -167,7 +180,6 @@ public class GameManager : MonoBehaviour
                 {
                     // -- Put codes that are needed to be called only once -- //
                     pauseMenu.SetActive(false);
-                    inGameMenu.SetActive(false);
                     gameOverMenu.SetGameOverBanner(b_pass);
                     gameOverMenu.gameObject.SetActive(true);
                     b_gameover = true;
@@ -192,6 +204,12 @@ public class GameManager : MonoBehaviour
         gameState = state;
         callOnce = true;        // Set to true so every time the state change, there's a place to call some code once in the loop
     }
+
+	public void ChangeLevelState(LEVELSTATES state)
+	{
+		levelState = state;
+		callOnce2 = true;
+	}
     #endregion
 
     IEnumerator GameOver()
@@ -211,6 +229,32 @@ public class GameManager : MonoBehaviour
     void Game()
     {
         // put updates here for when in in-game state
+		switch(levelState)
+		{
+			case LEVELSTATES.DISPLAY_ITEMSLIST:
+				if(callOnce2)
+				{
+
+					callOnce2 = false;
+
+					ChangeLevelState(LEVELSTATES.FINDING);
+				}
+				break;
+			case LEVELSTATES.FINDING:
+                if (callOnce2)
+                {
+
+                    callOnce2 = false;
+                }
+                break;
+			case LEVELSTATES.AFTER_FIND:
+                if (callOnce2)
+                {
+
+                    callOnce2 = false;
+                }
+                break;
+		}
     }
 
     void SETPATH()
@@ -227,4 +271,8 @@ public class GameManager : MonoBehaviour
         ChangeGameState(GAMESTATES.INIT);
     }
 
+    public bool IsPlayState()
+	{
+		return gameState == GAMESTATES.INGAME && levelState == LEVELSTATES.FINDING;
+	}
 }

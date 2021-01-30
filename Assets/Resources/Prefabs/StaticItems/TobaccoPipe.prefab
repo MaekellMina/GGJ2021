@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 34
+  itemName: Tobacco Pipe
+  isStatic: 1

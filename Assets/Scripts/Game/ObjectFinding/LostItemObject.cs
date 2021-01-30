@@ -5,6 +5,8 @@ using UnityEngine;
 public class LostItemObject : MonoBehaviour
 {
     public int itemId;
+	public string itemName;
+	public bool isStatic;
 
     public void OnMouseDown()
     {

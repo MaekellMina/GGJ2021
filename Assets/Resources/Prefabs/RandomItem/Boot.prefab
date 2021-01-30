@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8025893651185093752}
   - component: {fileID: 6502869407799128721}
   m_Layer: 0
-  m_Name: Object3
+  m_Name: Boot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
+  itemName: Boot
+  isStatic: 0

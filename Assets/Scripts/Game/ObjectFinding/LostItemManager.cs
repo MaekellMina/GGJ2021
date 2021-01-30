@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class LostItemManager : MonoBehaviour
 {
     internal static LostItemManager instance;
-    public LostItem[] lostItemPool;
+    public LostItemObject[] lostItemPool;
     public Transform lostItemListParent;
-    public GameObject lostItemPrefab;
+	public GameObject lostItemTextPrefab;
        
     [SerializeField]
     private int numAdditionalItemsToDisplay;
@@ -19,6 +19,7 @@ public class LostItemManager : MonoBehaviour
 
 	private List<int> itemIdsToDisplay;
 	private List<int> itemIdsToFind;
+	private List<LostItemText> lostItemTexts;
       
     void Awake()
     {
@@ -28,14 +29,22 @@ public class LostItemManager : MonoBehaviour
             return; 
         }
         instance = this;
-        CreateItemsList();
     }
+    
+	private void Start()
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			GameObject instance = Instantiate(lostItemTextPrefab) as GameObject;
+			CacheManager.Store("LostItemText", instance);
+		}
+	}
 
 	public void CreateItemsList()
 	{
 		itemIdsToDisplay = new List<int>();
 
-		List<LostItem> lostItemPoolCopy = lostItemPool.ToList();
+		List<LostItemObject> lostItemPoolCopy = lostItemPool.ToList();
 		int count = lostItemPoolCopy.Count;
 
         //add all static items first
@@ -66,22 +75,36 @@ public class LostItemManager : MonoBehaviour
 			itemIdsToDisplayCopy.RemoveAt(randomIndex);
 		}
 
-        foreach (var item in itemIdsToFind)
+		lostItemTexts = new List<LostItemText>();
+		foreach (var itemId in itemIdsToFind)
         {
-            var itemName = lostItemPool.Single(x => x.itemId == item).name;
-            
-            GameObject instance = Instantiate(lostItemPrefab) as GameObject;
-            instance.transform.SetParent(lostItemListParent);
-            instance.transform.localScale = Vector3.one;
-            instance.GetComponent<Text>().text = itemName;
+            var itemName = lostItemPool.Single(x => x.itemId == itemId).itemName;
+
+			GameObject lostItemText = CacheManager.ActivateRandom("LostItemText");
+            lostItemText.transform.SetParent(lostItemListParent);
+			lostItemText.transform.position = lostItemListParent.position;
+            lostItemText.transform.localScale = Vector3.one;
+			lostItemText.GetComponent<LostItemText>().AssignInfo(itemId, itemName);
+			lostItemTexts.Add(lostItemText.GetComponent<LostItemText>());
         }
 
 	}
 
-	public void FindItem(int objectId)
+	public void FindItem(int itemId)
     {
-        LostItem item = lostItemPool.Single(x => x.itemId == objectId);
-        Debug.Log(item.name);
+		if (!GameManager.instance.IsPlayState())
+			return;
+		
+		if(itemIdsToFind.Contains(itemId))
+		{
+			LostItemText itemText = lostItemTexts.Single(x => x.AssignedID == itemId);
+			if (!itemText.CrossedOut)
+			{
+				LostItemObject item = lostItemPool.Single(x => x.itemId == itemId);
+				itemText.CrossOut();
+				Debug.Log(item.itemName);
+			}
+		}
     }
 
 }
