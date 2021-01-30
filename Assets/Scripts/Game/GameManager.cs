@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
 
     private bool b_pass = false;            // Did the game succeed or fail?
     private int gameScore = 0;
-       
+    public GameObject mainMenu;
+    public GameObject inGameMenu;
+    public GameObject pauseMenu;
+    public GameoverUI gameOverMenu;
+
     internal static GameManager instance;   // singleton instance
     //Put your game states here
     public enum GAMESTATES
@@ -96,18 +100,26 @@ public class GameManager : MonoBehaviour
 			case GAMESTATES.MAINMENU:
 				if(callOnce)
 				{
-
-					callOnce = false;
+                    mainMenu.SetActive(true);
+                    pauseMenu.SetActive(false);
+                    inGameMenu.SetActive(false);
+                    gameOverMenu.gameObject.SetActive(false);
+                    callOnce = false;
 				}
-				break;
+
+                if (Input.anyKeyDown)
+                    ChangeGameState(GAMESTATES.INIT);
+
+                break;
             case GAMESTATES.INIT:
                 if(callOnce)
                 {
                     // -- Put codes that are needed to be called only once -- //
                     //Do the setup for the game here.
 
+                    mainMenu.SetActive(false);
+                    gameOverMenu.gameObject.SetActive(false);
 
-                    
                     //
                     callOnce = false;
                     //change gamestate after running init once
@@ -118,12 +130,16 @@ public class GameManager : MonoBehaviour
                 if (callOnce)
                 {
                     // -- Put codes that are needed to be called only once -- //
-
-
-
+                    pauseMenu.SetActive(false);
+                    inGameMenu.SetActive(true);
+                    gameOverMenu.gameObject.SetActive(false);
                     //
                     callOnce = false;
                 }
+
+                if (Input.GetKeyDown(KeyCode.A))
+                    ChangeGameState(GAMESTATES.GAMEOVER);
+
                 //Game Loop
                 Game();
                 break;
@@ -131,18 +147,18 @@ public class GameManager : MonoBehaviour
                 if (callOnce)
                 {
                     // -- Put codes that are needed to be called only once -- //
-
+                    gameOverMenu.gameObject.SetActive(false);
+                    inGameMenu.SetActive(false);
+                    pauseMenu.SetActive(true);
                     EventsManager.OnGamePaused.Invoke();
 
                     //
                     callOnce = false;
                 }
-
                 break;
 			case GAMESTATES.WIN_CINEMATIC:
 				if(callOnce)
 				{
-
 					callOnce = false;
 				}
 				break;
@@ -150,12 +166,18 @@ public class GameManager : MonoBehaviour
                 if (callOnce)
                 {
                     // -- Put codes that are needed to be called only once -- //
+                    pauseMenu.SetActive(false);
+                    inGameMenu.SetActive(false);
+                    gameOverMenu.SetGameOverBanner(b_pass);
+                    gameOverMenu.gameObject.SetActive(true);
                     b_gameover = true;
 
                     StartCoroutine(GameOver());
                     //
                     callOnce = false;
                 }
+
+
                 break;
 
         }
