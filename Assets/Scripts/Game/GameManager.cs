@@ -137,8 +137,6 @@ public class GameManager : MonoBehaviour
                     callOnce = false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.A))
-                    ChangeGameState(GAMESTATES.GAMEOVER);
 
                 //Game Loop
                 Game();
