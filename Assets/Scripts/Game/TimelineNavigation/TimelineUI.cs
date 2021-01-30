@@ -31,6 +31,15 @@ public class TimelineUI : MonoBehaviour
 		timeTrackingCoroutine = StartCoroutine(TimeTracking_IEnum());
 	}
 
+    public void StartTrackingOnIndex(int startIndex)
+	{
+		timeTrackerPin.anchoredPosition3D = Vector3.right * (startIndex * intervalWidth);
+		curIntervalIndex = startIndex;
+		if (timeTrackingCoroutine != null)
+			StopCoroutine(timeTrackingCoroutine);
+		timeTrackingCoroutine = StartCoroutine(TimeTracking_IEnum());
+	}
+
     private IEnumerator TimeTracking_IEnum()
 	{      
 		while (true)

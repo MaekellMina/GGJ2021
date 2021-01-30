@@ -9,6 +9,7 @@ public class LostItemManager : MonoBehaviour
 {
     internal static LostItemManager instance;
     public LostItemObject[] lostItemPool;
+	public Transform lostItemPoolParent;
     public Transform lostItemListParent;
 	public GameObject lostItemTextPrefab;
        
@@ -42,6 +43,12 @@ public class LostItemManager : MonoBehaviour
 
 	public void CreateItemsList()
 	{
+		for (int i = 0; i < lostItemPool.Length; i++)
+		{
+			lostItemPool[i].transform.SetParent(lostItemPoolParent);
+			lostItemPool[i].gameObject.SetActive(false);
+		}
+
 		itemIdsToDisplay = new List<int>();
 
 		List<LostItemObject> lostItemPoolCopy = lostItemPool.ToList();
