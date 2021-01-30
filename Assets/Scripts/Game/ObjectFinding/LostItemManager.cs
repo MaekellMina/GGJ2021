@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LostItemManager : MonoBehaviour
 {
     internal static LostItemManager instance;
     public LostItem[] lostItemPool;
+    public Transform lostItemListParent;
+    public GameObject lostItemPrefab;
        
     [SerializeField]
     private int numAdditionalItemsToDisplay;
@@ -22,9 +25,10 @@ public class LostItemManager : MonoBehaviour
         if (instance != null)
         {
             Destroy(this);
-            return;
+            return; 
         }
         instance = this;
+        CreateItemsList();
     }
 
 	public void CreateItemsList()
@@ -61,6 +65,17 @@ public class LostItemManager : MonoBehaviour
 			itemIdsToFind.Add(itemIdsToDisplayCopy[randomIndex]);
 			itemIdsToDisplayCopy.RemoveAt(randomIndex);
 		}
+
+        foreach (var item in itemIdsToFind)
+        {
+            var itemName = lostItemPool.Single(x => x.itemId == item).name;
+            
+            GameObject instance = Instantiate(lostItemPrefab) as GameObject;
+            instance.transform.SetParent(lostItemListParent);
+            instance.transform.localScale = Vector3.one;
+            instance.GetComponent<Text>().text = itemName;
+        }
+
 	}
 
 	public void FindItem(int objectId)
