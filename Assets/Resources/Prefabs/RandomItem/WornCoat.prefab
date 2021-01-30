@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8025893651185093752}
   - component: {fileID: 6502869407799128721}
   m_Layer: 0
-  m_Name: Object4
+  m_Name: WornCoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,4 +120,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c1e4ed2be9d26408a32fb54139df50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 3
+  itemId: 20
