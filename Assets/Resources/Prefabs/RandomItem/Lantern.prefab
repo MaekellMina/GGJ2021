@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &896226039711933782
+--- !u!1 &314889612802102339
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3791723839180058266}
-  - component: {fileID: 2921017128818156982}
-  - component: {fileID: 6131458693565226506}
-  - component: {fileID: 6937856486349725923}
+  - component: {fileID: 4373089815995785103}
+  - component: {fileID: 2352909943854732451}
+  - component: {fileID: 6717663689766612767}
+  - component: {fileID: 7522850920228999670}
   m_Layer: 0
-  m_Name: WalkieTalkie
+  m_Name: Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3791723839180058266
+--- !u!4 &4373089815995785103
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896226039711933782}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 314889612802102339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2921017128818156982
+--- !u!212 &2352909943854732451
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896226039711933782}
+  m_GameObject: {fileID: 314889612802102339}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -82,13 +82,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6131458693565226506
+--- !u!61 &6717663689766612767
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896226039711933782}
+  m_GameObject: {fileID: 314889612802102339}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -108,18 +108,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
---- !u!114 &6937856486349725923
+--- !u!114 &7522850920228999670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896226039711933782}
+  m_GameObject: {fileID: 314889612802102339}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57c1e4ed2be9d26408a32fb54139df50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 42
-  itemName: Walkie Talkie
-  isStatic: 1
+  itemId: 12
+  itemName: Lantern
+  isStatic: 0
