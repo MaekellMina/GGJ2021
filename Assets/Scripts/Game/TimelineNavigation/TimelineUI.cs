@@ -10,6 +10,12 @@ public class TimelineUI : MonoBehaviour
 	private RectTransform timeTrackerPin;
 	[SerializeField]
 	private RectTransform axis;
+	[SerializeField]
+	private GameObject pauseButton;
+	[SerializeField]
+	private GameObject playButton;
+
+	public bool IsPaused { set; get; }
 
 	private float axisWidth;
 	private float intervalWidth;
@@ -26,6 +32,9 @@ public class TimelineUI : MonoBehaviour
 
 	public void StartTracking()
 	{
+		IsPaused = false;
+		playButton.SetActive(false);
+		pauseButton.SetActive(true);
 		timeTrackerPin.anchoredPosition3D = Vector3.zero;
 		curIntervalIndex = 0;
 		if (timeTrackingCoroutine != null)
@@ -35,6 +44,9 @@ public class TimelineUI : MonoBehaviour
 
     public void StartTrackingOnIndex(int startIndex)
 	{
+		IsPaused = false;
+        playButton.SetActive(false);
+        pauseButton.SetActive(true);
 		timeTrackerPin.anchoredPosition3D = Vector3.right * (startIndex * intervalWidth);
 		curIntervalIndex = startIndex;
 		if (timeTrackingCoroutine != null)
@@ -55,7 +67,7 @@ public class TimelineUI : MonoBehaviour
 			FrameManager.instance.DisplayFrame(curIntervalIndex);
 			while (t < 1)  
 			{
-				if (GameManager.instance.IsPlayState())
+				if (GameManager.instance.IsPlayState() && !IsPaused)
 				{
 					timeTrackerPin.anchoredPosition3D = Vector3.Lerp(Vector3.right * startX, Vector3.right * destinationX, t);
 					t += Time.deltaTime / timeIntervalPerFrame;

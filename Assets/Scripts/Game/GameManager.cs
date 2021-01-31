@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameoverUI gameOverMenu;
 
 	public TimelineUI timelineUI;
+	public LivesUI livesUI;
 
     internal static GameManager instance;   // singleton instance
     //Put your game states here
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour
 					LostItemManager.instance.CreateItemsList();
 					FrameManager.instance.ResetFrames();
 					timelineUI.StartTracking();
+					livesUI.ResetLives();
 
                     //
                     callOnce = false;

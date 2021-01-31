@@ -4,34 +4,66 @@ using UnityEngine;
 
 public class LivesUI : MonoBehaviour
 {
-    public GameObject[] xLife;
-    private int currentX;
-    private bool dead;
+	public CanvasGroup[] crossUI;
+	public CameraShake cameraShake;
+	public int Lives { set; get; }
+	private int maxLives;
+    
 
-    void Start()
+	[SerializeField]
+	private AnimationCurve scaleAnimationCurve;
+
+    public void ResetLives()
     {
-        currentX = 0;
+		maxLives = crossUI.Length;
+		Lives = maxLives;
 
-        foreach (var life in xLife)
-            life.SetActive(false);
+		for (int i = 0; i < maxLives; i++)
+		{
+			crossUI[i].gameObject.SetActive(false);
+			crossUI[i].alpha = 0;
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (dead == true)
-            Debug.Log("u dead");
-        else if (Input.GetKeyDown(KeyCode.A))
-            IncreaseXLives();
+        if (Input.GetKeyDown(KeyCode.A))
+			DecreaseLives();
         
     }
 
-    public void IncreaseXLives()
+    public void DecreaseLives()
     {
-        xLife[currentX].SetActive(true);
-        currentX++;
+		if (Lives > 0)
+		{
+			cameraShake.Shake(0.4f, 0.07f);
+			StartCoroutine(Crossout_IEnum(maxLives - Lives));
+			Lives--;
 
-        if (currentX == 5)
-                dead = true;
+        }
+
+			if (Lives <= 0)
+				Lives = 0;
     }
+
+    //animates cross out
+    private IEnumerator Crossout_IEnum(int index)
+	{
+		crossUI[index].gameObject.SetActive(true);
+
+		float t = 0;
+        while(t<1)
+		{
+			crossUI[index].alpha = t;
+			crossUI[index].transform.localScale = Vector3.one * scaleAnimationCurve.Evaluate(t);
+
+			t += Time.deltaTime / 0.4f;
+			yield return null;
+		}
+
+		crossUI[index].alpha = 1;
+		crossUI[index].transform.localScale = Vector3.one;
+
+	}
 }
