@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 49
-  itemName: PocketWatch
+  itemName: Pocket Watch
   isStatic: 0
   possibleAnchorPoints: []

@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 54
-  itemName: ToyAirplane
+  itemName: Toy Airplane
   isStatic: 0
   possibleAnchorPoints: []

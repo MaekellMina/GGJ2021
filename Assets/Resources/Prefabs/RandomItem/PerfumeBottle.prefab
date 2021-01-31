@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 20
-  itemName: PerfumeBottle
+  itemName: Perfume Bottle
   isStatic: 0
   possibleAnchorPoints: []

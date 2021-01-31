@@ -7,9 +7,16 @@ public class LostItemObject : MonoBehaviour
     public int itemId;
 	public string itemName;
 	public bool isStatic;
-	public SpriteRenderer[] possibleAnchorPoints;
+	public AnchorPoint[] possibleAnchorPoints;
+	public LostItemObject reference;
 
-    public void OnMouseDown()
+	private void Start()
+	{
+		if(reference != null)
+		    possibleAnchorPoints = reference.possibleAnchorPoints;
+	}
+
+	public void OnMouseDown()
     {
         LostItemManager.instance.FindItem(itemId);
     }

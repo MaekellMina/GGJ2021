@@ -21,6 +21,8 @@ public class LostItemManager : MonoBehaviour
 	public GameObject wrongFeedbackPrefab;
 	public Transform wrongFeedbackParent;
 
+	public AnchorPoint[] anchorPoints;
+
 	private List<int> itemIdsToDisplay;
 	private List<int> itemIdsToFind;
 	private List<LostItemText> lostItemTexts;
@@ -46,6 +48,11 @@ public class LostItemManager : MonoBehaviour
 
 	public void CreateItemsList()
 	{
+		for (int i = 0; i < anchorPoints.Length; i++)
+		{
+			anchorPoints[i].ResetAnchor();
+		}
+		
 		for (int i = 0; i < lostItemPool.Length; i++)
 		{
 			lostItemPool[i].transform.SetParent(lostItemPoolParent);
@@ -72,6 +79,23 @@ public class LostItemManager : MonoBehaviour
 		{
 			int randomIndex = Random.Range(0, lostItemPoolCopy.Count);
 			itemIdsToDisplay.Add(lostItemPoolCopy[randomIndex].itemId);
+			AnchorPoint anchorPoint = null;
+			while(anchorPoint == null) 
+			{
+				Debug.Log(lostItemPoolCopy[randomIndex].possibleAnchorPoints.Length);
+				AnchorPoint x = lostItemPoolCopy[randomIndex].possibleAnchorPoints[Random.Range(0, lostItemPoolCopy[randomIndex].possibleAnchorPoints.Length)];
+				if(!x.taken)
+				{
+					anchorPoint = x;
+					x.taken = true;
+				}
+			}
+			lostItemPoolCopy[randomIndex].transform.SetParent(anchorPoint.transform);
+			lostItemPoolCopy[randomIndex].transform.localPosition = Vector3.zero;
+			lostItemPoolCopy[randomIndex].GetComponent<SpriteRenderer>().color = new Color(anchorPoint.GetComponent<SpriteRenderer>().color.r, anchorPoint.GetComponent<SpriteRenderer>().color.g, anchorPoint.GetComponent<SpriteRenderer>().color.b, 1);
+			lostItemPoolCopy[randomIndex].GetComponent<SpriteRenderer>().sortingOrder = anchorPoint.GetComponent<SpriteRenderer>().sortingOrder;
+			lostItemPoolCopy[randomIndex].gameObject.SetActive(true);
+
 			lostItemPoolCopy.RemoveAt(randomIndex);
 		}
         
