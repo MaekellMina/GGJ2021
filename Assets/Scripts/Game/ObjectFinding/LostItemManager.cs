@@ -12,11 +12,14 @@ public class LostItemManager : MonoBehaviour
 	public Transform lostItemPoolParent;
     public Transform lostItemListParent;
 	public GameObject lostItemTextPrefab;
-       
+
     [SerializeField]
     private int numAdditionalItemsToDisplay;
 	[SerializeField]
 	private int numItemsToFind;
+
+	public GameObject wrongFeedbackPrefab;
+	public Transform wrongFeedbackParent;
 
 	private List<int> itemIdsToDisplay;
 	private List<int> itemIdsToFind;
@@ -111,6 +114,14 @@ public class LostItemManager : MonoBehaviour
 				itemText.CrossOut();
 				Debug.Log(item.itemName);
 			}
+		}
+		else
+		{
+			//wrong
+			GameManager.instance.livesUI.DecreaseLives();
+
+			GameObject wrongFeedbackInstance = Instantiate(wrongFeedbackPrefab, wrongFeedbackParent) as GameObject;
+			wrongFeedbackInstance.GetComponent<RectTransform>().anchoredPosition3D = Input.mousePosition;
 		}
     }
 

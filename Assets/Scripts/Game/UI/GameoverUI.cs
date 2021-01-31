@@ -9,9 +9,15 @@ public class GameoverUI : MonoBehaviour
 
     public void SetGameOverBanner(bool isWinner)
     {
-        if (isWinner)
-            WinBanner.SetActive(true);
-        else
-            LoseBanner.SetActive(false);
+		if (isWinner)
+		{
+			WinBanner.SetActive(true);
+			LoseBanner.SetActive(false);
+		}
+		else
+		{
+			WinBanner.SetActive(false);
+			LoseBanner.SetActive(true);
+		}
     }
 }

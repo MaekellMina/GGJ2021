@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	public GameObject gameScreen;
     public GameObject pauseMenu;
     public GameoverUI gameOverMenu;
+	public GameObject crackedGlass;
 
 	public TimelineUI timelineUI;
 	public LivesUI livesUI;
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
 					FrameManager.instance.ResetFrames();
 					timelineUI.StartTracking();
 					livesUI.ResetLives();
+					crackedGlass.SetActive(false);
 
                     //
                     callOnce = false;
@@ -182,8 +184,6 @@ public class GameManager : MonoBehaviour
                 {
                     // -- Put codes that are needed to be called only once -- //
                     pauseMenu.SetActive(false);
-                    gameOverMenu.SetGameOverBanner(b_pass);
-                    gameOverMenu.gameObject.SetActive(true);
                     b_gameover = true;
 
                     StartCoroutine(GameOver());
@@ -216,20 +216,22 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameOver()
     {
-        if(b_pass)
-        {
-            // If user has won
-        }
-        else
-        {
-            // If user has failed 
-        }
-        yield return null;
+		if (!b_pass)
+			crackedGlass.SetActive(true);
+		yield return new WaitForSeconds(1.25f);
+
+		gameOverMenu.SetGameOverBanner(b_pass);
+		gameOverMenu.GetComponent<UIObject>().SetActive(true);
     }
 
     //in-game loop
     void Game()
     {
+		if (livesUI.Lives <= 0)
+		{
+			b_pass = false;
+			ChangeGameState(GAMESTATES.GAMEOVER);
+		}
         // put updates here for when in in-game state
 		switch(levelState)
 		{
