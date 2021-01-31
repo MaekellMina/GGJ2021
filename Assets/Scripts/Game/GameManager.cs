@@ -118,21 +118,25 @@ public class GameManager : MonoBehaviour
 				if(callOnce)
 				{
                     mainMenu.SetActive(true);
-                    pauseMenu.SetActive(false);
+					pauseMenu.GetComponent<UIObject>().SetActive(false);
                     gameOverMenu.gameObject.SetActive(false);
                     callOnce = false;
 				}
 
-                if (Input.anyKeyDown)
-                    ChangeGameState(GAMESTATES.INIT);
+				if (Input.anyKeyDown)
+				{
+					
+					ChangeGameState(GAMESTATES.INIT);
+				}
 
                 break;
             case GAMESTATES.INIT:
                 if(callOnce)
                 {
-                    // -- Put codes that are needed to be called only once -- //
-                    //Do the setup for the game here.
+					// -- Put codes that are needed to be called only once -- //
+					//Do the setup for the game here.
 
+					AudioManager.instance.PlayAudioClip(3);
                     mainMenu.SetActive(false);
                     gameOverMenu.gameObject.SetActive(false);
 
@@ -155,7 +159,7 @@ public class GameManager : MonoBehaviour
                 if (callOnce)
                 {
                     // -- Put codes that are needed to be called only once -- //
-                    pauseMenu.SetActive(false);
+					pauseMenu.GetComponent<UIObject>().SetActive(false);
                     inGameMenu.SetActive(true);
 					gameScreen.SetActive(true);
                     gameOverMenu.gameObject.SetActive(false);
@@ -171,7 +175,7 @@ public class GameManager : MonoBehaviour
                 {
                     // -- Put codes that are needed to be called only once -- //
                     gameOverMenu.gameObject.SetActive(false);
-                    pauseMenu.SetActive(true);
+					pauseMenu.GetComponent<UIObject>().SetActive(true);
                     EventsManager.OnGamePaused.Invoke();
 
                     //
@@ -188,7 +192,7 @@ public class GameManager : MonoBehaviour
                 if (callOnce)
                 {
                     // -- Put codes that are needed to be called only once -- //
-                    pauseMenu.SetActive(false);
+					pauseMenu.GetComponent<UIObject>().SetActive(false);
                     b_gameover = true;
 
                     StartCoroutine(GameOver());

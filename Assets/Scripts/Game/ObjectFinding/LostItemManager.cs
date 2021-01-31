@@ -56,8 +56,12 @@ public class LostItemManager : MonoBehaviour
 		
 		for (int i = 0; i < lostItemPool.Length; i++)
 		{
-			lostItemPool[i].transform.SetParent(lostItemPoolParent, false);
-			lostItemPool[i].gameObject.SetActive(false);
+			if (!lostItemPool[i].isStatic)
+			{
+				lostItemPool[i].transform.SetParent(lostItemPoolParent, false);
+				lostItemPool[i].gameObject.SetActive(false);
+			}
+
 			lostItemPool[i].correct.SetActive(false);
 		}
 
@@ -149,6 +153,7 @@ public class LostItemManager : MonoBehaviour
 				Debug.Log(item.itemName);
 				item.correct.SetActive(true);
 				ItemsFound++;
+				AudioManager.instance.PlayAudioClip(2);
 
 				if(ItemsFound>= numItemsToFind)
 				{

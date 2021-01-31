@@ -41,6 +41,7 @@ public class LivesUI : MonoBehaviour
 			StartCoroutine(Crossout_IEnum(maxLives - Lives));
 			Lives--;
 
+			AudioManager.instance.PlayAudioClip(6);
         }
 
 			if (Lives <= 0)

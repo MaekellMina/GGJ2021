@@ -44,6 +44,7 @@ public class TimelineUI : MonoBehaviour
 
     public void StartTrackingOnIndex(int startIndex)
 	{
+		AudioManager.instance.PlayAudioClip(5);
 		IsPaused = false;
         playButton.SetActive(false);
         pauseButton.SetActive(true);
@@ -65,6 +66,7 @@ public class TimelineUI : MonoBehaviour
 				startX = 0;
 			float destinationX = startX + intervalWidth;
 			FrameManager.instance.DisplayFrame(curIntervalIndex);
+			AudioManager.instance.PlayAudioClip(4);
 			while (t < 1)  
 			{
 				if (GameManager.instance.IsPlayState() && !IsPaused)
@@ -80,5 +82,10 @@ public class TimelineUI : MonoBehaviour
 				curIntervalIndex = 0;
 			yield return null;
 		}
+	}
+
+    public void PauseAudio()
+	{
+		AudioManager.instance.PlayAudioClip(5);
 	}
 }
