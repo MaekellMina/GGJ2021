@@ -9,7 +9,7 @@ public class FrameObject : MonoBehaviour
 	[SerializeField]
 	private SpriteRenderer[] staticEntities;
 	[SerializeField]
-	private List<SpriteRenderer> dynamicEntities;
+	public List<SpriteRenderer> dynamicEntities;
 	[SerializeField]
 	private SpriteRenderer filter;
 	private float filterMaxOpacity = -1;

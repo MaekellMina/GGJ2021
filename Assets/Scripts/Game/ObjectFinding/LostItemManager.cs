@@ -26,6 +26,7 @@ public class LostItemManager : MonoBehaviour
 	private List<int> itemIdsToDisplay;
 	private List<int> itemIdsToFind;
 	private List<LostItemText> lostItemTexts;
+	public int ItemsFound { set; get; }
       
     void Awake()
     {
@@ -55,8 +56,9 @@ public class LostItemManager : MonoBehaviour
 		
 		for (int i = 0; i < lostItemPool.Length; i++)
 		{
-			lostItemPool[i].transform.SetParent(lostItemPoolParent);
+			lostItemPool[i].transform.SetParent(lostItemPoolParent, false);
 			lostItemPool[i].gameObject.SetActive(false);
+			lostItemPool[i].correct.SetActive(false);
 		}
 
 		itemIdsToDisplay = new List<int>();
@@ -82,7 +84,6 @@ public class LostItemManager : MonoBehaviour
 			AnchorPoint anchorPoint = null;
 			while(anchorPoint == null) 
 			{
-				Debug.Log(lostItemPoolCopy[randomIndex].possibleAnchorPoints.Length);
 				AnchorPoint x = lostItemPoolCopy[randomIndex].possibleAnchorPoints[Random.Range(0, lostItemPoolCopy[randomIndex].possibleAnchorPoints.Length)];
 				if(!x.taken)
 				{
@@ -90,12 +91,12 @@ public class LostItemManager : MonoBehaviour
 					x.taken = true;
 				}
 			}
-			lostItemPoolCopy[randomIndex].transform.SetParent(anchorPoint.transform);
+			lostItemPoolCopy[randomIndex].transform.SetParent(anchorPoint.transform,false);
 			lostItemPoolCopy[randomIndex].transform.localPosition = Vector3.zero;
 			lostItemPoolCopy[randomIndex].GetComponent<SpriteRenderer>().color = new Color(anchorPoint.GetComponent<SpriteRenderer>().color.r, anchorPoint.GetComponent<SpriteRenderer>().color.g, anchorPoint.GetComponent<SpriteRenderer>().color.b, 1);
 			lostItemPoolCopy[randomIndex].GetComponent<SpriteRenderer>().sortingOrder = anchorPoint.GetComponent<SpriteRenderer>().sortingOrder;
 			lostItemPoolCopy[randomIndex].gameObject.SetActive(true);
-
+			anchorPoint.frame.dynamicEntities.Add(lostItemPoolCopy[randomIndex].GetComponent<SpriteRenderer>());
 			lostItemPoolCopy.RemoveAt(randomIndex);
 		}
         
@@ -123,13 +124,14 @@ public class LostItemManager : MonoBehaviour
             var itemName = lostItemPool.Single(x => x.itemId == itemId).itemName;
 
 			GameObject lostItemText = CacheManager.ActivateRandom("LostItemText");
-            lostItemText.transform.SetParent(lostItemListParent);
+            lostItemText.transform.SetParent(lostItemListParent, false);
 			lostItemText.transform.position = lostItemListParent.position;
             lostItemText.transform.localScale = Vector3.one;
 			lostItemText.GetComponent<LostItemText>().AssignInfo(itemId, itemName);
 			lostItemTexts.Add(lostItemText.GetComponent<LostItemText>());
         }
 
+		ItemsFound = 0;
 	}
 
 	public void FindItem(int itemId)
@@ -145,6 +147,14 @@ public class LostItemManager : MonoBehaviour
 				LostItemObject item = lostItemPool.Single(x => x.itemId == itemId);
 				itemText.CrossOut();
 				Debug.Log(item.itemName);
+				item.correct.SetActive(true);
+				ItemsFound++;
+
+				if(ItemsFound>= numItemsToFind)
+				{
+					GameManager.instance.b_pass = true;
+					GameManager.instance.ChangeGameState(GameManager.GAMESTATES.GAMEOVER);
+				}
 			}
 		}
 		else
@@ -157,4 +167,8 @@ public class LostItemManager : MonoBehaviour
 		}
     }
 
+	public int GetNumItemsToFind()
+	{
+		return numItemsToFind;
+	}
 }

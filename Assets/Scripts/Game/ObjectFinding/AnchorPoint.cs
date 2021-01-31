@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnchorPoint : MonoBehaviour
 {
+	public FrameObject frame;
 	public SpriteRenderer spriteRenderer { set; get; }
 	public bool taken { set; get; }
 
@@ -11,5 +12,6 @@ public class AnchorPoint : MonoBehaviour
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		taken = false;
+		frame.dynamicEntities.Clear();
 	}
 }

@@ -9,6 +9,7 @@ public class LostItemObject : MonoBehaviour
 	public bool isStatic;
 	public AnchorPoint[] possibleAnchorPoints;
 	public LostItemObject reference;
+	public GameObject correct;
 
 	private void Start()
 	{
@@ -20,4 +21,5 @@ public class LostItemObject : MonoBehaviour
     {
         LostItemManager.instance.FindItem(itemId);
     }
+
 }

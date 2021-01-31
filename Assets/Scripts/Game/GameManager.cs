@@ -2,13 +2,14 @@
 using System.Collections;
 using System;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [HideInInspector]
     public string Path;                     // Path to where the game data will be saved
-
-    private bool b_pass = false;            // Did the game succeed or fail?
+    
+    public bool b_pass = false;            // Did the game succeed or fail?
     private int gameScore = 0;
     public GameObject mainMenu;
     public GameObject inGameMenu;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameoverUI gameOverMenu;
 	public GameObject crackedGlass;
+	public Text timeUI;
+	private float timeElapsed;
 
 	public TimelineUI timelineUI;
 	public LivesUI livesUI;
@@ -138,6 +141,8 @@ public class GameManager : MonoBehaviour
 					timelineUI.StartTracking();
 					livesUI.ResetLives();
 					crackedGlass.SetActive(false);
+					timeElapsed = 0;
+					timeUI.text = "0";
 
                     //
                     callOnce = false;
@@ -220,13 +225,15 @@ public class GameManager : MonoBehaviour
 			crackedGlass.SetActive(true);
 		yield return new WaitForSeconds(1.25f);
 
-		gameOverMenu.SetGameOverBanner(b_pass);
+		gameOverMenu.SetGameOverBanner(b_pass, timeElapsed);
 		gameOverMenu.GetComponent<UIObject>().SetActive(true);
     }
 
     //in-game loop
     void Game()
     {
+		timeElapsed += Time.deltaTime;
+		timeUI.text = ((int)timeElapsed).ToString();
 		if (livesUI.Lives <= 0)
 		{
 			b_pass = false;
