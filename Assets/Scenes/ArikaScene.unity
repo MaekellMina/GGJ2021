@@ -12462,6 +12462,7 @@ MonoBehaviour:
   itemName: Wrong
   isStatic: 1
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!65 &178509507
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19742,6 +19743,7 @@ MonoBehaviour:
   itemName: Boot
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!61 &296298306
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26165,6 +26167,7 @@ MonoBehaviour:
   itemName: Flashlight
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &408997430
 GameObject:
   m_ObjectHideFlags: 0
@@ -27637,6 +27640,7 @@ MonoBehaviour:
   itemName: 
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &427035683
 GameObject:
   m_ObjectHideFlags: 0
@@ -29430,7 +29434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &470172081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30328,6 +30332,7 @@ MonoBehaviour:
   itemName: Umbrella
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &493128849
 GameObject:
   m_ObjectHideFlags: 0
@@ -37947,6 +37952,7 @@ MonoBehaviour:
   itemName: Harmonica
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &623822546
 GameObject:
   m_ObjectHideFlags: 0
@@ -63533,6 +63539,7 @@ MonoBehaviour:
   itemName: Lizard
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1018976184
 GameObject:
   m_ObjectHideFlags: 0
@@ -68156,6 +68163,7 @@ MonoBehaviour:
   itemName: 
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1082270940
 GameObject:
   m_ObjectHideFlags: 0
@@ -71923,6 +71931,7 @@ MonoBehaviour:
   itemName: 
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1135334937
 GameObject:
   m_ObjectHideFlags: 0
@@ -77513,6 +77522,7 @@ MonoBehaviour:
   itemName: 
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1222972461
 GameObject:
   m_ObjectHideFlags: 0
@@ -81387,6 +81397,7 @@ MonoBehaviour:
   itemName: 
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1297719980
 GameObject:
   m_ObjectHideFlags: 0
@@ -104688,6 +104699,7 @@ MonoBehaviour:
   itemName: Boot
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1615981478
 GameObject:
   m_ObjectHideFlags: 0
@@ -107643,6 +107655,7 @@ MonoBehaviour:
   itemName: TeaPot
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1668800845
 GameObject:
   m_ObjectHideFlags: 0
@@ -115686,6 +115699,7 @@ MonoBehaviour:
   itemName: 
   isStatic: 0
   possibleAnchorPoints: []
+  reference: {fileID: 0}
 --- !u!1 &1777679722
 GameObject:
   m_ObjectHideFlags: 0
@@ -121776,6 +121790,7 @@ MonoBehaviour:
   wrongFeedbackPrefab: {fileID: 8306951935900393233, guid: 071cdab0b7f15426cbf391905237a632,
     type: 3}
   wrongFeedbackParent: {fileID: 444263376}
+  anchorPoints: []
 --- !u!4 &1877246047
 Transform:
   m_ObjectHideFlags: 0
