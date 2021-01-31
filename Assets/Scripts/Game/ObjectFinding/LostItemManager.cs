@@ -85,6 +85,14 @@ public class LostItemManager : MonoBehaviour
 			itemIdsToDisplayCopy.RemoveAt(randomIndex);
 		}
 
+		if (lostItemTexts != null)
+		{
+			for (int i = lostItemTexts.Count - 1; i >= 0; i--)
+			{
+				CacheManager.Store("LostItemText", lostItemTexts[i].gameObject);
+			}
+		}
+
 		lostItemTexts = new List<LostItemText>();
 		foreach (var itemId in itemIdsToFind)
         {

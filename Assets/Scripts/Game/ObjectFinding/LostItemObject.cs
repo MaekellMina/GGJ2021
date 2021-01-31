@@ -7,6 +7,7 @@ public class LostItemObject : MonoBehaviour
     public int itemId;
 	public string itemName;
 	public bool isStatic;
+	public SpriteRenderer[] possibleAnchorPoints;
 
     public void OnMouseDown()
     {
