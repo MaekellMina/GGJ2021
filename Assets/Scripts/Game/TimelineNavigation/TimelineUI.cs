@@ -16,10 +16,12 @@ public class TimelineUI : MonoBehaviour
 	private int curIntervalIndex;
 	private Coroutine timeTrackingCoroutine;
 
+	private const int NUM_INTERVALS = 48;
+
 	private void Start()
 	{
 		axisWidth = axis.rect.width;
-		intervalWidth = axisWidth / 48;
+		intervalWidth = axisWidth / NUM_INTERVALS;
 	}
 
 	public void StartTracking()
@@ -62,6 +64,8 @@ public class TimelineUI : MonoBehaviour
 			}
 			timeTrackerPin.anchoredPosition3D = Vector3.right * destinationX;
 			curIntervalIndex++;
+			if (curIntervalIndex >= NUM_INTERVALS)
+				curIntervalIndex = 0;
 			yield return null;
 		}
 	}
