@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4744219425023557914}
   - component: {fileID: 8397450698759208947}
   m_Layer: 0
-  m_Name: PaintBrushSet
+  m_Name: PaintCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 31
-  itemName: Paint Can
+  itemName: PaintCan
   isStatic: 1
