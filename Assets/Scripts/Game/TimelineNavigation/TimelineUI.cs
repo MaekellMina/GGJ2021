@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimelineUI : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class TimelineUI : MonoBehaviour
 	private GameObject pauseButton;
 	[SerializeField]
 	private GameObject playButton;
+
+	[SerializeField]
+	private Text timelineTextUI;
+
+	[SerializeField]
+	private string[] timeStrings;
 
 	public bool IsPaused { set; get; }
 
@@ -67,6 +74,7 @@ public class TimelineUI : MonoBehaviour
 			float destinationX = startX + intervalWidth;
 			FrameManager.instance.DisplayFrame(curIntervalIndex);
 			AudioManager.instance.PlayAudioClip(4);
+			timelineTextUI.text = timeStrings[curIntervalIndex];
 			while (t < 1)  
 			{
 				if (GameManager.instance.IsPlayState() && !IsPaused)
